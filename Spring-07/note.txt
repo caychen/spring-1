@@ -1,0 +1,37 @@
+1、Spring如何在web应用中使用？
+	1)、jar包
+	
+	2)、Spring配置文件
+	
+	3)、如何创建IOC容器
+		i、非web应用在main方法中直接创建
+		ii、web应用应该在web应用被服务器加载时就创建ioc容器
+			在ServletContextListener的contextInitialized()方法中创建
+		iii、在web应用的其他组件中如何来访问IOC容器？
+			在ServletContextListener的contextInitialized()方法中创建ServletContext对象，
+			并把创建的ApplicationContext存入ServletContext对象中。
+		iv、实际上，Spring配置文件的名字和位置应该是可以配置的，所以可以将其配置到web.xml应用的初始化参数中
+			<context-param>
+			    <param-name>contextConfigLocation</param-name>
+			    <param-value>classpath:applicationContext.xml</param-value>
+  			</context-param>
+
+2、Spring如何整合Struts2？
+	1)、整合目标
+		使IOC容器来管理Struts2的Action
+		
+	2)、如何进行整合？
+		(1)、导入Struts的jar包
+		(2)、在Spring的IOC容器中配置Struts2的Action
+			注意：在IOC容器中配置Struts2的Action时，需要配置scope属性，其值必须是prototype
+			<bean id="personAction" class="org.com.cay.action.PersonAction" scope="prototype">
+				<property name="personService" ref="personService">
+				</property>
+			</bean>
+		(3)、Spring整合Struts2时，在Struts2中配置的Spring的Action的class时，需要指向IOC容器中该bean的id
+			<action name="person-save" class="personAction">
+				<result>/success.jsp</result>
+			</action>
+		(4)、导入struts2-spring-plugin-2.5.jar
+		
+	3)、整合原理：通过添加struts2-spring-plugin-2.5.jar以后，struts2会先从IOC容器中获取Action实例，否则才反射创建

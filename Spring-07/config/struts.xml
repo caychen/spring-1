@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	
+	<package name="default" namespace="/" extends="struts-default">
+	
+		<!-- Spring整合Struts2时，在Struts2中配置的Spring的Action的class时，需要指向IOC容器中该bean的id -->
+		<action name="person-save" class="personAction">
+			<result>/success.jsp</result>
+		</action>
+	</package>
+    
+</struts>

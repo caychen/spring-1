@@ -1,0 +1,17 @@
+1、Spring如何在web应用中使用？
+	1)、jar包
+	2)、Spring配置文件
+	3)、如何创建IOC容器
+		i、非web应用在main方法中直接创建
+		ii、web应用应该在web应用被服务器加载时就创建ioc容器
+			在ServletContextListener的contextInitialized()方法中创建
+		iii、在web应用的其他组件中如何来访问IOC容器？
+			在ServletContextListener的contextInitialized()方法中创建ServletContext对象，
+			并把创建的ApplicationContext存入ServletContext对象中。
+		iv、实际上，Spring配置文件的名字和位置应该是可以配置的，所以可以将其配置到web.xml应用的初始化参数中
+			<context-param>
+			    <param-name>contextConfigLocation</param-name>
+			    <param-value>classpath:applicationContext.xml</param-value>
+  			</context-param>
+
+2、Spring如何整合Struts2？

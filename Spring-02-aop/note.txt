@@ -1,0 +1,26 @@
+1. SpringAOP
+	1). 加入jar包(版本有所不同)
+		aopalliance.jar
+		aspectjweaver.jar
+		commons-logging-1.1.3.jar
+		spring-aop-4.2.5.RELEASE.jar
+		spring-beans-4.2.5.RELEASE.jar
+		spring-context-4.2.5.RELEASE.jar
+		spring-core-4.2.5.RELEASE.jar
+		spring-expression-4.2.5.RELEASE.jar
+	
+	2). 在配置文件中加入aop的命名空间
+	
+	3). 基于注解的方式
+		(1). 在spring配置文件中加入如下配置：
+			<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+		(2). 把横切关注点的代码抽象到切面的类中
+			i. 切面首先是一个IOC容器中的bean，即加入@Component注解
+			ii.切面还需要加入@Aspect注解
+		(3). 在类中声明各种通知：
+			i. 声明一个方法
+			ii.在方法上加入通知的方式，如@Before，@After等注解
+			iii.编写通知表达式
+				@Before("execution(* org.com.cay.aop.impl.*.*(..))")
+		(4). 可以在切面上使用@Order注解来指定切面的优先级，数值越小，优先级越高
+			@Order(value=1)
